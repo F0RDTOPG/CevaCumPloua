@@ -115,8 +115,9 @@ oras2.forEach(path => {
   path.addEventListener("click", function() {
     const cityNameWithDiacritics = this.getAttribute("name");
     const cityName = removeDiacritics(cityNameWithDiacritics);
-    fetchWeatherInformation(cityName);
+    fetchWeatherInformation(cityName.toUpperCase());
   });
 });
 
+//bara de cautare
 
