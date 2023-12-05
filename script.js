@@ -5,7 +5,11 @@ function removeDiacritics(str) {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
-
+function setDefaultCity() {
+  const defaultCity = "Chisinau";
+  fetchWeatherInformation(defaultCity);
+}
+window.addEventListener('load', setDefaultCity);
 function getWeatherForecast(cityName) {
   const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}`;
 
@@ -119,5 +123,6 @@ oras2.forEach(path => {
   });
 });
 
-//bara de cautare
+
+
 
