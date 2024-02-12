@@ -123,6 +123,3 @@ oras2.forEach(path => {
   });
 });
 
-
-
-
