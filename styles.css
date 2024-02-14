@@ -215,7 +215,7 @@ body{
 }
 input{
     flex: 1;
-    width: 20vw;
+    width: 247px;
     height: 4.3vh;
     font-size: 26px;
     background: rgba(49, 49, 49, 0.52);
@@ -245,7 +245,7 @@ input:focus{
 .but3{
     margin-top: -13px;
     border:none;
-    width: 5vw;
+    width: 100px;
     height: 4.92vh;
     font-size: 26px;
     background-color:#131313;
@@ -273,3 +273,43 @@ button:hover{
     background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
 }
+
+
+@media only screen and (max-width: 1700px) {
+    .moldova {
+      margin-left: -100px;
+    }
+
+  }
+  @media only screen and (max-width: 1570px) {
+    .input2{
+        position: absolute;
+        left: 25px;
+        margin-top: -160px;
+        
+    }
+    .result-box{
+        margin-top: -120px;
+        margin-left: -385px;
+
+    }
+    .but3{
+        display: none;
+    }
+    .input3{
+        width: 320px;
+    }
+    li{
+        width: 335px;
+    }
+    .Info_panel{
+        
+        margin-top: 470px;
+    }
+
+  }
+  @media only screen and (max-width: 1136px) {
+    .moldova {
+        display: none;
+      }
+  }

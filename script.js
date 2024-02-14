@@ -65,19 +65,19 @@ function fetchWeatherInformation(cityName) {
       const humidity = weatherData.main.humidity;
       const windSpeed = weatherData.wind.speed;
 
-      const time = document.querySelector(".time");
+      const timeElement = document.querySelector(".time");
       const Hum = document.querySelector(".hum");
       const wind = document.querySelector(".wind");
       const UV = document.querySelector(".UV");
       const cels = document.querySelector(".cels");
       const img = document.querySelector(".img");
 
-      const timeZoneOffsetMilliseconds = weatherData.timezone * 1000;
-      const timeZone = new Date(timeZoneOffsetMilliseconds).toLocaleString('en-US', { timeZoneName: 'short' });
-      const currentTime = new Date().toLocaleTimeString();
+      const timeZoneOffsetSeconds = weatherData.timezone;
+      const localTime = new Date(new Date().getTime() + (timeZoneOffsetSeconds - 7200) * 1000); // Adjusted by subtracting 2 hours
+      const currentTime = localTime.toLocaleTimeString();
 
-      time.innerHTML = currentTime;
-      locate.innerHTML = `${cityName} <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.66667 8.33333C7.125 8.33333 7.5175 8.17 7.84417 7.84333C8.17028 7.51722 8.33333 7.125 8.33333 6.66667C8.33333 6.20833 8.17028 5.81583 7.84417 5.48917C7.5175 5.16306 7.125 5 6.66667 5C6.20833 5 5.81611 5.16306 5.49 5.48917C5.16333 5.81583 5 6.20833 5 6.66667C5 7.125 5.16333 7.51722 5.49 7.84333C5.81611 8.17 6.20833 8.33333 6.66667 8.33333ZM6.66667 14.4583C8.36111 12.9028 9.61806 11.4894 10.4375 10.2183C11.2569 8.94778 11.6667 7.81944 11.6667 6.83333C11.6667 5.31944 11.1839 4.07972 10.2183 3.11417C9.25333 2.14917 8.06944 1.66667 6.66667 1.66667C5.26389 1.66667 4.07972 2.14917 3.11417 3.11417C2.14917 4.07972 1.66667 5.31944 1.66667 6.83333C1.66667 7.81944 2.07639 8.94778 2.89583 10.2183C3.71528 11.4894 4.97222 12.9028 6.66667 14.4583ZM6.66667 16.6667C4.43056 14.7639 2.76056 12.9964 1.65667 11.3642C0.552222 9.7325 0 8.22222 0 6.83333C0 4.75 0.670278 3.09028 2.01083 1.85417C3.35083 0.618055 4.90278 0 6.66667 0C8.43056 0 9.9825 0.618055 11.3225 1.85417C12.6631 3.09028 13.3333 4.75 13.3333 6.83333C13.3333 8.22222 12.7814 9.7325 11.6775 11.3642C10.5731 12.9964 8.90278 14.7639 6.66667 16.6667Z" fill="white"/></svg></h2>`;
+      timeElement.innerHTML = currentTime;
+      locate.innerHTML = `${cityName} <svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.66667 8.33333C7.125 8.33333 7.5175 8.17 7.84417 7.84333C8.17028 7.51722 8.33333 7.125 8.33333 6.66667C8.33333 6.20833 8.17028 5.81583 7.84417 5.48917C7.5175 5.16306 7.125 5 6.66667 5C6.20833 5 5.81611 5.16306 5.49 5.48917C5.16333 5.81583 5 6.20833 5 6.66667C5 7.125 5.16333 7.51722 5.49 7.84333C5.81611 8.17 6.20833 8.33333 6.66667 8.33333ZM6.66667 14.4583C8.36111 12.9028 9.61806 11.4894 10.4375 10.2183C11.2569 8.94778 11.6667 7.81944 11.6667 6.83333C11.6667 5.31944 11.1839 4.07972 10.2183 3.11417C9.25333 2.14917 8.06944 1.66667 6.66667 1.66667C5.26389 1.66667 4.07972 2.14917 3.11417 3.11417C2.14917 4.07972 1.66667 5.31944 1.66667 6.83333C1.66667 7.81944 2.07639 8.94778 2.89583 10.2183C3.71528 11.4894 4.97222 12.9028 6.66667 14.4583ZM6.66667 16.6667C4.43056 14.7639 2.76056 12.9964 1.65667 11.3642C0.552222 9.7325 0 8.22222 0 6.83333C0 4.75 0.670278 3.09028 2.01083 1.85417C3.35083 0.618055 4.90278 0 6.66667 0C8.43056 0 9.9825 0.618055 11.3225 1.85417C12.6631 3.09028 13.3333 4.75 13.3333 6.83333C13.3333 8.22222 12.7814 9.7325 11.6775 11.3642C10.5731 12.9964 8.90278 14.7639 6.66667 16.6667Z" fill="white"/></svg>`;
       cels.innerHTML = `${Math.round(temperatureCelsius)}°`;
       UV.innerHTML = `Low`;
       wind.innerHTML = `${windSpeed} m/s`;
@@ -107,6 +107,13 @@ function fetchWeatherInformation(cityName) {
       sunrise.innerHTML = sunriseTime;
       sunset.innerHTML = sunsetTime;
     });
+}
+
+function handleKeyPress(event) {
+  if (event.keyCode === 13) {
+      const cityName = removeDiacritics(document.querySelector('.input3').value);
+      fetchWeatherInformation(cityName.toUpperCase());
+  }
 }
 
 document.querySelector('.but3').addEventListener('click', function() {
